@@ -3,7 +3,7 @@
 # Alunos: 
 # - aluno A: Fulano da Silva, fulanos@insper.edu.br
 # - aluno B: Sicrano de Almeida, sicranoa1@insper.edu.br
-
+from random import randint  
 def carregar_cenarios():
     cenarios = {
         "inicio": {
@@ -58,10 +58,17 @@ def main():
     game_over = False
     while not game_over:
         cenario_atual = cenarios[nome_cenario_atual]
-
+        monstro=False   
         # Aluno A: substitua este comentário pelo código para imprimir 
         # o cenário atual.
-
+        if nome_cenario_atual!="inicio":
+            monstro=bool(randint(0,1))
+        
+        titulo=cenario_atual['titulo']
+        print(titulo)
+        print('-'* len(titulo))
+        descricao=cenario_atual['descricao']
+        print(descricao) 
         opcoes = cenario_atual['opcoes']
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
@@ -70,8 +77,14 @@ def main():
 
             # Aluno B: substitua este comentário e a linha abaixo pelo código
             # para pedir a escolha do usuário.
-            # teste 
-            escolha = ""
+            for a,b in opcoes.items():
+                print('{0}:{1}'.format(a,b))
+                #colocando o monstro
+            if monstro:
+                print('tem um monstro no local!!')
+                
+            e=str(input('qual a sua escolha?'))
+            escolha = e
 
             if escolha in opcoes:
                 nome_cenario_atual = escolha
