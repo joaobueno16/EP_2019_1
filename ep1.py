@@ -70,6 +70,7 @@ def main():
 
             # Aluno B: substitua este comentário e a linha abaixo pelo código
             # para pedir a escolha do usuário.
+            # teste 
             escolha = ""
 
             if escolha in opcoes:
