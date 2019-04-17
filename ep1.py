@@ -94,13 +94,7 @@ def main():
                 game_over = True
 
     print("Você morreu!")
-        #teste2
-        #teste3
-        #teste4
-        #teste5
-        #teste6
-        #teste7
-        #teste8 
+      
 
 # Programa principal.
 if __name__ == "__main__":
