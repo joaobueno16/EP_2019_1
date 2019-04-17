@@ -83,7 +83,18 @@ def main():
                 #colocando o monstro
             if monstro:
                 print('tem um monstro no local!!')
-                
+            while monstro:
+                f=str(input('quer lutar? '))
+                if f!='nao':
+                    luta=bool(randint(0,1))
+                    if luta:
+                        print('voce venceu a luta')
+                        break
+                    else:
+                        game_over=True
+                else:
+                    monstro=False
+                    break
             e=str(input('qual a sua escolha? '))
             escolha = e
 
@@ -94,6 +105,7 @@ def main():
                 game_over = True
 
     print("Você morreu!")
+    #teste thiago
       
 
 # Programa principal.
