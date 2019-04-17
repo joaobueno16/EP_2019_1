@@ -100,6 +100,7 @@ def main():
         #teste5
         #teste6
         #teste7
+        #teste8 
 
 # Programa principal.
 if __name__ == "__main__":
