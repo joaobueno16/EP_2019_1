@@ -61,6 +61,7 @@ def main():
         monstro=False   
         # Aluno A: substitua este comentário pelo código para imprimir 
         # o cenário atual.
+      
         if nome_cenario_atual!="inicio":
             monstro=bool(randint(0,1))
         
@@ -83,7 +84,7 @@ def main():
             if monstro:
                 print('tem um monstro no local!!')
                 
-            e=str(input('qual a sua escolha?'))
+            e=str(input('qual a sua escolha? '))
             escolha = e
 
             if escolha in opcoes:
@@ -93,7 +94,12 @@ def main():
                 game_over = True
 
     print("Você morreu!")
-
+        #teste2
+        #teste3
+        #teste4
+        #teste5
+        #teste6
+        #teste7
 
 # Programa principal.
 if __name__ == "__main__":
