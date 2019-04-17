@@ -4,21 +4,22 @@
 # - aluno A: Fulano da Silva, fulanos@insper.edu.br
 # - aluno B: Sicrano de Almeida, sicranoa1@insper.edu.br
 from random import randint  
+import sys
 def carregar_cenarios():
     cenarios = {
-        "inicio": {
+        "i": {
             "titulo": "Saguao do perigo",
             "descricao": "Voce esta no saguao de entrada do insper",
             "opcoes": {
                 "andar professor": "Tomar o elevador para o andar do professor",
-                "biblioteca": "Ir para a biblioteca"
+                "b": "Ir para a biblioteca"
             }
         },
         "andar professor": {
             "titulo": "Andar do desespero",
             "descricao": "Voce chegou ao andar da sala do seu professor",
             "opcoes": {
-                "inicio": "Tomar o elevador para o saguao de entrada",
+                "i": "Tomar o elevador para o saguao de entrada",
                 "professor": "Falar com o professor"
             }
         },
@@ -29,15 +30,15 @@ def carregar_cenarios():
                          "e devorou sua alma.",
             "opcoes": {}
         },
-        "biblioteca": {
+        "b": {
             "titulo": "Caverna da tranquilidade",
             "descricao": "Voce esta na biblioteca",
             "opcoes": {
-                "inicio": "Voltar para o saguao de entrada"
+                "i": "Voltar para o saguao de entrada"
             }
         }
     }
-    nome_cenario_atual = "inicio"
+    nome_cenario_atual = "i"
     return cenarios, nome_cenario_atual
 
 
@@ -58,11 +59,11 @@ def main():
     game_over = False
     while not game_over:
         cenario_atual = cenarios[nome_cenario_atual]
-        monstro=False   
+        monstro= False
         # Aluno A: substitua este comentário pelo código para imprimir 
         # o cenário atual.
       
-        if nome_cenario_atual!="inicio":
+        if nome_cenario_atual!="i":
             monstro=bool(randint(0,1))
         
         titulo=cenario_atual['titulo']
@@ -87,12 +88,14 @@ def main():
                 f=str(input('quer lutar? '))
                 if f!='nao':
                     luta=bool(randint(0,1))
+                    print(luta)
                     if luta:
                         print('voce venceu a luta')
                         break
                     else:
                         game_over=True
-                else:
+                        print('vc foi comido')
+                        sys.exit("o monstro te comeu")
                     monstro=False
                     break
             e=str(input('qual a sua escolha? '))
@@ -105,7 +108,7 @@ def main():
                 game_over = True
 
     print("Você morreu!")
-    #teste thiago
+    
       
 
 # Programa principal.
