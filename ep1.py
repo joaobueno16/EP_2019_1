@@ -95,19 +95,20 @@ def main():
                     else:
                         game_over=True
                         print('vc foi comido')
-                        sys.exit("o veterano te deu uma surra")
+                        
                     monstro=False
                     break
                 else:
                     break
-            e=str(input('qual a sua escolha? '))
-            escolha = e
+            if not game_over:                
+                e=str(input('qual a sua escolha? '))
+                escolha = e
 
-            if escolha in opcoes:
-                nome_cenario_atual = escolha
-            else:
-                print("Sua indecisão foi sua ruína!")
-                game_over = True
+                if escolha in opcoes:
+                    nome_cenario_atual = escolha
+                else:
+                    print("Sua indecisão foi sua ruína!")
+                    game_over = True
 
     print("Você morreu!")
     
@@ -116,3 +117,4 @@ def main():
 # Programa principal.
 if __name__ == "__main__":
     main()
+    #teste 
