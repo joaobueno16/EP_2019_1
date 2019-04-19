@@ -4,7 +4,6 @@
 # - aluno A: Fulano da Silva, fulanos@insper.edu.br
 # - aluno B: Sicrano de Almeida, sicranoa1@insper.edu.br
 from random import randint  
-import sys
 def carregar_cenarios():
     cenarios = {
         "inicio": {
@@ -41,7 +40,7 @@ def carregar_cenarios():
     nome_cenario_atual = "inicio"
     return cenarios, nome_cenario_atual
 
-
+vida=3
 def main():
     print("Na hora do sufoco!")
     print("------------------")
@@ -117,5 +116,4 @@ def main():
 # Programa principal.
 if __name__ == "__main__":
     main()
-    #teste 
-    #teste2
+   
