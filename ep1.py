@@ -3,6 +3,7 @@
 # Alunos: 
 # - aluno A: Fulano da Silva, fulanos@insper.edu.br
 # - aluno B: Sicrano de Almeida, sicranoa1@insper.edu.br
+import random
 from random import randint  
 def carregar_cenarios():
     cenarios = {
@@ -64,48 +65,75 @@ def main():
       
         if nome_cenario_atual!="inicio":
             monstro=bool(randint(0,1))
+
         
+        temitem = bool(randint(0,1))
+        opcoesitens = ['espada', 'kit medico', 'granada', 'ak-47','rpg', 'Banana']
+        inventario = []
         titulo=cenario_atual['titulo']
         print(titulo)
         print('-'* len(titulo))
         descricao=cenario_atual['descricao']
         print(descricao) 
-        opcoes = cenario_atual['opcoes']
+        opcoes = cenario_atual['opcoes'] 
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
             game_over = True
         else:
+            #funcao que da opcoes de itens no inventario
+            def embaralha_itens_e_adiciona_ao_inventario (opcoesitens):
+                opcoespegar = []
+                aleatorio1 = random.choice(opcoesitens)
+                aleatorio2 = random.choice(opcoesitens)
+                while aleatorio1 == aleatorio2:
+                    aleatorio1 = random.choice(opcoesitens)
+                    opcoespegar.append(aleatorio1)
+                    opcoespegar.append(aleatorio2)
+                    print('Voce encontrou 2 itens nesta sala:', opcoespegar)
+                    resp = input('Digite o nome do item que voce deseja adicionar ao seu inventario: ')
+                    if resp == aleatorio1 or aleatorio2:
+                        inventario.append(resp)
+                    break
+            for a,b in opcoes.items():
+                print('{0}:{1}'.format(a,b))
+                if temitem:
+                    embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
 
             # Aluno B: substitua este comentário e a linha abaixo pelo código
             # para pedir a escolha do usuário.
-            for a,b in opcoes.items():
-                print('{0}:{1}'.format(a,b))
+                            
+                
                 #colocando o monstro
             if monstro:
-                print('tem um veterano no local!!')
+                print('Tem um veterano no local!!')
             while monstro:
-                f=str(input('quer lutar? '))
+                f=str(input('Voce quer lutar? '))
                 if f!='nao':
                     luta=bool(randint(0,1))
+                    for armas in inventario:
+                        if armas == 'AK-47' or 'rpg' or  'espada':
+                            luta = True    
                     print(luta)
                     if luta:
-                        print('voce venceu a luta')
+                        print('Voce arrebentou o veterano')
                         break
                     else:
                         game_over=True
-                        print('vc foi comido')
+                        print('Voce foi destroçado pelo veterano')
                         
                     monstro=False
                     break
                 else:
-                    #teste rodrigo 
                     break
             if not game_over:                
-                e=str(input('qual a sua escolha? '))
+                e=str(input('Para onde voce deseja ir? '))
                 escolha = e
 
                 if escolha in opcoes:
+                    temitem = bool(randint(0,1))
                     nome_cenario_atual = escolha
+                    if temitem:
+                        embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
                 else:
                     print("Sua indecisão foi sua ruína!")
                     game_over = True
@@ -114,7 +142,7 @@ def main():
     
       
 
-# Programa principal.
+
 if __name__ == "__main__":
     main()
    
