@@ -98,6 +98,7 @@ def main():
                     monstro=False
                     break
                 else:
+                    #teste rodrigo 
                     break
             if not game_over:                
                 e=str(input('qual a sua escolha? '))
