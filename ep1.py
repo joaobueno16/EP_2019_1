@@ -74,7 +74,8 @@ def main():
         print(titulo)
         print('-'* len(titulo))
         descricao=cenario_atual['descricao']
-        print(descricao) 
+        print(descricao)
+#           print(inventario)
         opcoes = cenario_atual['opcoes'] 
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
@@ -107,6 +108,8 @@ def main():
             if monstro:
                 print('Tem um veterano no local!!')
             while monstro:
+                print('sim: quero lutar' )
+                print("nao: quero fugir pra minha mamae")
                 f=str(input('Voce quer lutar? '))
                 if f!='nao':
                     luta=bool(randint(0,1))
