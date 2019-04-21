@@ -68,14 +68,13 @@ def main():
 
         
         temitem = bool(randint(0,1))
-        opcoesitens = ['espada', 'kit medico', 'granada', 'ak-47','rpg', 'Banana']
-        inventario = []
+        opcoesitens = ['espada', 'kit medico', 'granada', 'ak-47','rpg', 'banana']
+        inventario = ['nada']
         titulo=cenario_atual['titulo']
         print(titulo)
         print('-'* len(titulo))
         descricao=cenario_atual['descricao']
         print(descricao)
-        print(inventario)
         opcoes = cenario_atual['opcoes'] 
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
@@ -86,23 +85,52 @@ def main():
                 opcoespegar = []
                 aleatorio1 = random.choice(opcoesitens)
                 aleatorio2 = random.choice(opcoesitens)
-                while aleatorio1 == aleatorio2:
-                    aleatorio1 = random.choice(opcoesitens)
-                    opcoespegar.append(aleatorio1)
-                    opcoespegar.append(aleatorio2)
-                    print('Voce encontrou 2 itens nesta sala:', opcoespegar)
-                    resp = input('Digite o nome do item que voce deseja adicionar ao seu inventario: ')
-                    if resp == aleatorio1 or aleatorio2:
-                        inventario.append(resp)
-                    break
+                opcoespegar.append(aleatorio1)
+                opcoespegar.append(aleatorio2)
+                print('Voce encontrou 2 itens nesta sala:', opcoespegar)
+                resp = str(input('Digite o nome do item que voce deseja adicionar ao seu inventario: '))
+                inventario.append(resp)
+                print('O seguinte item foi adicionado com seu inventario: ', resp)
+                print (inventario)
+                return inventario
+           
             for a,b in opcoes.items():
                 print('{0}:{1}'.format(a,b))
                 if temitem:
                     embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
-
+           
+            
+            forcadic = dict()
+            forcadic['forca']= 0 
+            lutafinal = False    
+            def bigboss(x):
+                opcaodeluta = input('Voce atingiu a forca maxima, agora voce obteve acesso a sala extra: a batalha final. Voce deseja acessar a sala?')
+                if opcaodeluta == 'sim'.lower():
+                    print('Voce se deparou com o big boss, a batalha final, agora voce pode escolher um item do inventario para usar na batalha')
+                    print(inventario)
+                    opcaodearma= input('Digite a a arma que voce deseja usar na luta: ')
+                    if opcaodearma == 'rpg'or 'granada':
+                        x = True
+                        print('Voce ganhou a luta final!')
+                        print('Voce destruiu o bigboss utilizando a ', opcaodearma)
+                        game_over = True
+                    elif opcaodearma == 'banana'or 'kit medico' or 'ak-47' or 'espada':
+                        x = False
+                        print('Voce perdeu a luta!')
+                        print(opcaodearma, 'nao foi suficiente para superar o poder do bigboss!!')
+                        game_over = True
+                    else:
+                        game_over = True
+            
+            
+            #coloca o big
             # Aluno B: substitua este comentário e a linha abaixo pelo código
             # para pedir a escolha do usuário.
-                            
+            
+            def define_forca(x):
+                x['forca']+=1 
+                return x
+                
                 
                 #colocando o monstro
             if monstro:
@@ -112,13 +140,11 @@ def main():
                 print("nao: quero fugir pra minha mamae")
                 f=str(input('Voce quer lutar? '))
                 if f!='nao':
-                    luta=bool(randint(0,1))
-                    for armas in inventario:
-                        if armas == 'AK-47' or 'rpg' or  'espada':
-                            luta = True    
-                    print(luta)
+                    luta=randint(0,1)
                     if luta:
                         print('Voce arrebentou o veterano')
+                        define_forca(forcadic) 
+                        print(forcadic)
                         break
                     else:
                         game_over=True
@@ -133,8 +159,8 @@ def main():
                 escolha = e
 
                 if escolha in opcoes:
-                    temitem = bool(randint(0,1))
                     nome_cenario_atual = escolha
+                    temitem = bool(randint(0,1))
                     if temitem:
                         embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
                 else:
