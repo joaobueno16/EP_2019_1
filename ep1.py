@@ -75,7 +75,7 @@ def main():
         print('-'* len(titulo))
         descricao=cenario_atual['descricao']
         print(descricao)
-#           print(inventario)
+        print(inventario)
         opcoes = cenario_atual['opcoes'] 
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
