@@ -1,8 +1,10 @@
 # EP 2019-1: Escape Insper
 #
 # Alunos: 
-# - aluno A: Fulano da Silva, fulanos@insper.edu.br
-# - aluno B: Sicrano de Almeida, sicranoa1@insper.edu.br
+# - aluno A: Joao luiz leao bueno, joaollb@al.insper.edu.br
+# - aluno B: Raphael Butori, raphaeljb@al.insper.edu.br
+# - aluno C: Rodrigo Senatti Mattar rodrigosm11@al.insper.edu.br
+
 import random
 from random import randint  
 def carregar_cenarios():
@@ -40,8 +42,6 @@ def carregar_cenarios():
     }
     nome_cenario_atual = "inicio"
     return cenarios, nome_cenario_atual
-
-vida=3
 def main():
     print("Na hora do sufoco!")
     print("------------------")
@@ -53,6 +53,8 @@ def main():
         "na entrada do Insper, e quer procurar o professor para pedir um "
         "adiamento do EP (boa sorte...)")
     print()
+
+
 
     cenarios, nome_cenario_atual = carregar_cenarios()
 
@@ -70,10 +72,9 @@ def main():
       
         if nome_cenario_atual!="inicio":
             monstro=bool(randint(0,1))
-
-        
-        temitem = bool(randint(0,1))
-        opcoesitens = ['espada', 'kit medico', 'granada', 'ak-47','rpg', 'Banana']
+            
+        temitem = randint(0,2)
+        opcoesitens = ['espada', 'kit medico']
         titulo=cenario_atual['titulo']
         print(titulo)
         print('-'* len(titulo))
@@ -83,6 +84,7 @@ def main():
         opcoes = cenario_atual['opcoes'] 
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
+            print('voce morreu')
             game_over = True
         else:
             #funcao que da opcoes de itens no inventario
@@ -92,63 +94,51 @@ def main():
                 aleatorio2 = random.choice(opcoesitens)
                 while aleatorio1 == aleatorio2:
                     aleatorio1 = random.choice(opcoesitens)
-                    opcoespegar.append(aleatorio1)
-                    opcoespegar.append(aleatorio2)
-                    print('Voce encontrou 2 itens nesta sala:', opcoespegar)
-                    resp = input('Digite o nome do item que voce deseja adicionar ao seu inventario: ')
-                    if resp == aleatorio1 or aleatorio2:
-                        inventario.append(resp)
-                    break
-            for a,b in opcoes.items():
-                print('{0}:{1}'.format(a,b))
-                if temitem:
-                    embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
-            
-            #Big boss eh luta final
-            lutafinal = False
-            def bigboss(x):
-                opcaodeluta = input('Voce atingiu a forca maxima, agora voce obteve acesso a sala extra: a batalha final. Voce deseja acessar a sala? ')
-                if opcaodeluta == 'sim'.lower():
-                    print('Voce se deparou com o big boss, a batalha final, agora voce pode escolher um item do inventario para usar na batalha')
-                    print(inventario)
-                    opcaodearma= input('Digite a a arma que voce deseja usar na luta: ')
-                    if opcaodearma == 'rpg'or 'granada':
-                        x = True
-                        print('Voce ganhou a luta final!')
-                        print('Voce destruiu o bigboss utilizando a', opcaodearma)
-                        print('Digite sair para concluir o jogo')
-                        game_over = True
-                    elif opcaodearma == 'banana'or 'kit medico' or 'ak-47' or 'espada':
-                        x = False
-                        print('Voce perdeu a luta!')
-                        print(opcaodearma, 'nao foi suficiente para superar o poder do bigboss!!')
-                        game_over = True
-                        print('Digite sair para concluir o jogo')
+                opcoespegar.append(aleatorio1)
+                opcoespegar.append(aleatorio2)
+                print('Voce encontrou 2 itens nesta sala:', opcoespegar)
+                resp = input('Digite o nome do item que voce deseja adicionar ao seu inventario: ')
+                if resp == aleatorio1 or resp == aleatorio2:
+                    if 'nada' in inventario:
+                        inventario[0]=resp
                     else:
-                        game_over = True
+                        inventario.append(resp)
+                else:
+                    print('voce nao pegou nada')
+                print ('novo inventario',inventario)
                 
+            if temitem==1:
+                embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
+ 
+            #Big boss eh luta final
+           
+        
+            local_revive=["biblioteca","inicio","andar professor"]
             #Reviver 
             if not game_over:
                 def reviver (x):
                     for armas1 in x:
                         if armas1 == 'kit medico':
                             print('Voce morreu, mas voce possui um kit medico! ')
-                            resposta = input('Voce deseja usar para reviver?')
+                            resposta = input('Voce deseja usar para reviver?(voce perdera todos seus itens no processo!): ')
                             if resposta == 'sim'.lower():
                                 game_over = False 
+                                i=0
+                                while i<len(inventario):
+                                    del(inventario[i])
+                                    i+=1
                                 escolha1 = input('Aonde voce quer renascer?')
-                                if escolha1 in opcoes:
-                                    nome_cenario_atual = escolha
+                                if escolha1 in cenario_atual:
+                                    nome_cenario_atual = escolha1
                                     if temitem:
                                         embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
-                                    else:   
+                            else:   
                                         game_over = True
 
 
             # Aluno B: substitua este comentário e a linha abaixo pelo código
             # para pedir a escolha do usuário.
-                            
-                
+       
             if not game_over:    #colocando o monstro
                 if monstro:
                     print('Tem um veterano no local!!')
@@ -157,59 +147,82 @@ def main():
                     print("nao: quero fugir pra minha mamae")
                     f=str(input('Voce quer lutar? '))
                     if f!='nao':
-                        for armas in inventario:
-                            if armas == 'ak-47' or 'rpg' or  'espada':
-                                luta = True
+                            if 'ak-47'in inventario or 'rpg'in inventario or  'espada'in inventario:
                                 print('Voce arrebentou o veterano')
                                 forcadic['forca']+= 1 
                                 print(forcadic)
-                                if forcadic['forca'] >= 3:
-                                    bigboss(lutafinal)
+                              
                                 break
-                            elif armas == 'banana'or'nada':
+                            else:
+                                print( "vai ter que ser na marra")
                                 luta = bool(randint(0,1))
                                 if luta:
-                                    print('Voce arrebentou o veterano')
+                                    print('Voce derrotou o veterano')
                                     forcadic['forca']+= 1
                                     print(forcadic)
-                                    if forcadic['forca'] >= 3:
-                                        bigboss(lutafinal)
+                        
                                     break
                          
                                 else:
                                     game_over=True
                                     print('Voce foi destroçado pelo veterano')
+                                    print('voce morreu')
                                     reviver(inventario)
-                            else:
-                                game_over=True
-                                print('Voce foi destroçado pelo veterano')
-                                reviver(inventario)
                             
-                        monstro=False
-                        break
+                                monstro=False
+                                break
                     else:
+                        print('o veterano te zoa de covarde , mas ok , segue o jogo')
                         break
-            if not game_over:                
+                if not game_over:
+                    if forcadic['forca'] >= 3:
+                        
+                        opcaodeluta = input('Voce atingiu a forca maxima, agora voce obteve acesso a sala extra: a batalha final.deseja se teletransportar para a sala? ')
+                        if opcaodeluta == 'sim':
+                                print('Voce se deparou com o big boss, a batalha final, agora voce pode escolher um item do inventario para usar na batalha')
+                                print(inventario)
+                                opcaodearma= input('Digite a a arma que voce deseja usar na luta: ')
+                                if opcaodearma == 'rpg'or opcaodearma=='granada':
+                                   
+                                    print('bOOOOooooOoooOOOOoOOOOM')
+                                    print('Voce ganhou a luta final!')
+                                    print('Voce destruiu o bigboss utilizando a', opcaodearma)
+                                    print('com a queda do big boss e derrota dos veteranos em seu caminho voce adquiriu')
+                                    print('.')
+                                    print('.')
+                                    print('.')
+                                    print('.')
+                                    print('.')
+                                    print('habilidade de argumentação!!!')
+                                    print('unindo sua mais nova qualidade de argumentacao com seu charme unico, voce conseguiu conquistar a bencao de Mestre Toshi!')
+                                    print('adiando a entrega do ep voce se torna o menino mais popular da turma!')
+                                    print('FORÇA=100000000000000000000000000000')
+                                    print('parabens!!!!!')
+                                    game_over=True    
+                                
+                                    
+                                elif opcaodearma == 'banana'or opcaodearma=='kit medico' or opcaodearma=='ak-47' or opcaodearma=='espada':
+                                   
+                                    print('Voce perdeu a luta!')
+                                    print(opcaodearma, 'nao foi suficiente para superar o poder do bigboss!!')
+                                    print('voce morreu') 
+                                    game_over=True    
+                                
+                
+                
+            if not game_over:   
+                for a,b in opcoes.items():
+                    print(' opcao-:{0}:{1}'.format(a,b))
                 e=str(input('Para onde voce deseja ir? '))
                 escolha = e
-                if e == 'sair':
-                    game_over = True 
-                    print('Voce ganhou o jogo.')
+               
 
                 if escolha in opcoes:
-                    temitem = bool(randint(0,1))
                     nome_cenario_atual = escolha
-                    if temitem:
-                        embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
                 else:
                     print("Sua indecisão foi sua ruína!")
-                    game_over = True
-
-    print("Você morreu!")
-    
-      
-
-
+                    print('voce morreu')
+                    game_over=True
+   
 if __name__ == "__main__":
     main()
-   
