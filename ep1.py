@@ -4,7 +4,7 @@
 # - aluno A: Joao luiz leao bueno, joaollb@al.insper.edu.br
 # - aluno B: Raphael Butori, raphaeljb@al.insper.edu.br
 # - aluno C: Rodrigo Senatti Mattar rodrigosm11@al.insper.edu.br
-
+import time
 import random
 from random import randint  
 def carregar_cenarios():
@@ -59,22 +59,25 @@ def main():
     cenarios, nome_cenario_atual = carregar_cenarios()
 
     game_over = False
+    
+    
     #Coloca inventario
     forcadic = dict()
     inventario = ['nada']
-    forcadic['forca'] = 0 
+    forcadic['forca'] = 0
+    
+    
     
     while not game_over:
         cenario_atual = cenarios[nome_cenario_atual]
         monstro= False
-        # Aluno A: substitua este comentário pelo código para imprimir 
-        # o cenário atual.
+       
       
         if nome_cenario_atual!="inicio":
             monstro=bool(randint(0,1))
             
         temitem = randint(0,2)
-        opcoesitens = ['espada', 'kit medico']
+        opcoesitens = ['espada', 'kit medico','rpg','granada','banana','ak-47','banana','banana']
         titulo=cenario_atual['titulo']
         print(titulo)
         print('-'* len(titulo))
@@ -87,6 +90,9 @@ def main():
             print('voce morreu')
             game_over = True
         else:
+            
+            
+            
             #funcao que da opcoes de itens no inventario
             def embaralha_itens_e_adiciona_ao_inventario (opcoesitens):
                 opcoespegar = []
@@ -110,36 +116,19 @@ def main():
             if temitem==1:
                 embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
  
-            #Big boss eh luta final
+           
            
         
             local_revive=["biblioteca","inicio","andar professor"]
-            #Reviver 
-            if not game_over:
-                def reviver (x):
-                    for armas1 in x:
-                        if armas1 == 'kit medico':
-                            print('Voce morreu, mas voce possui um kit medico! ')
-                            resposta = input('Voce deseja usar para reviver?(voce perdera todos seus itens no processo!): ')
-                            if resposta == 'sim'.lower():
-                                game_over = False 
-                                i=0
-                                while i<len(inventario):
-                                    del(inventario[i])
-                                    i+=1
-                                escolha1 = input('Aonde voce quer renascer?')
-                                if escolha1 in cenario_atual:
-                                    nome_cenario_atual = escolha1
-                                    if temitem:
-                                        embaralha_itens_e_adiciona_ao_inventario(opcoesitens)
-                            else:   
-                                        game_over = True
+           
+            
 
-
-            # Aluno B: substitua este comentário e a linha abaixo pelo código
-            # para pedir a escolha do usuário.
-       
-            if not game_over:    #colocando o monstro
+          
+            
+            
+            
+             #colocando o monstro
+            if not game_over:    
                 if monstro:
                     print('Tem um veterano no local!!')
                 while monstro:
@@ -164,16 +153,31 @@ def main():
                                     break
                          
                                 else:
-                                    game_over=True
-                                    print('Voce foi destroçado pelo veterano')
-                                    print('voce morreu')
-                                    reviver(inventario)
+                                    if 'kit medico' in inventario:
+                                        print('Voce morreu, mas voce possui um kit medico! ')
+                                        resposta = input('Voce deseja usar para reviver?voce perdera todos seus itens no processo!')
+                                        if resposta == 'sim'.lower():
+                                            i=0
+                                            while i<len(inventario):
+                                                del(inventario[i])
+                                                i+=1
+                                                escolha1 = input('Aonde voce quer renascer?')
+                                                if escolha1 in local_revive:
+                                                    nome_cenario_atual = escolha1 
+                                    else:                
+                                        game_over = True
+                                        print('Voce foi derrotado pelo veterano') 
+
                             
                                 monstro=False
                                 break
                     else:
                         print('o veterano te zoa de covarde , mas ok , segue o jogo')
                         break
+                    
+                    
+                    
+                #bigboss    
                 if not game_over:
                     if forcadic['forca'] >= 3:
                         
@@ -189,14 +193,23 @@ def main():
                                     print('Voce destruiu o bigboss utilizando a', opcaodearma)
                                     print('com a queda do big boss e derrota dos veteranos em seu caminho voce adquiriu')
                                     print('.')
+                                    time.sleep(0.2)
                                     print('.')
+                                    time.sleep(0.2)
                                     print('.')
+                                    time.sleep(0.2)
                                     print('.')
+                                    time.sleep(0.2)
                                     print('.')
+                                    time.sleep(0.2)
                                     print('habilidade de argumentação!!!')
+                                    time.sleep(0.2)
                                     print('unindo sua mais nova qualidade de argumentacao com seu charme unico, voce conseguiu conquistar a bencao de Mestre Toshi!')
+                                    time.sleep(0.2)
                                     print('adiando a entrega do ep voce se torna o menino mais popular da turma!')
+                                    time.sleep(0.2)
                                     print('FORÇA=100000000000000000000000000000')
+                                    time.sleep(0.2)
                                     print('parabens!!!!!')
                                     game_over=True    
                                 
@@ -209,7 +222,7 @@ def main():
                                     game_over=True    
                                 
                 
-                
+             #mudanca de cenario   
             if not game_over:   
                 for a,b in opcoes.items():
                     print(' opcao-:{0}:{1}'.format(a,b))
